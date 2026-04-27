@@ -2,43 +2,26 @@ import { Action, ActionPanel, Icon, List, showToast, Toast } from "@raycast/api"
 import { useCallback, useEffect, useState } from "react";
 import { readTasks, Task, writeTasks } from "./utils";
 
-export default function ListTasks() {
+export default function FlagTask() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const loadTasks = useCallback(() => {
-    const all = readTasks();
-    setTasks(all.filter((t) => !t.completed && !t.deleted));
+    setTasks(readTasks().filter((t) => !t.completed && !t.deleted));
   }, []);
 
   useEffect(() => {
     loadTasks();
   }, [loadTasks]);
 
-  function updateTask(id: string, patch: Partial<Task>) {
+  function toggleFlag(task: Task) {
     const all = readTasks();
-    const target = all.find((t) => t.id === id);
-    if (!target) return;
-    writeTasks([{ ...target, ...patch }, ...all.filter((t) => t.id !== id)]);
+    writeTasks(all.map((t) => (t.id === task.id ? { ...t, flagged: !t.flagged } : t)));
+    showToast({ style: Toast.Style.Success, title: task.flagged ? "Flag removed" : "Task flagged" });
     loadTasks();
   }
 
-  function completeTask(task: Task) {
-    updateTask(task.id, { completed: true });
-    showToast({ style: Toast.Style.Success, title: "Task completed" });
-  }
-
-  function deleteTask(task: Task) {
-    updateTask(task.id, { deleted: true });
-    showToast({ style: Toast.Style.Success, title: "Task deleted" });
-  }
-
-  function toggleFlag(task: Task) {
-    updateTask(task.id, { flagged: !task.flagged });
-    showToast({ style: Toast.Style.Success, title: task.flagged ? "Flag removed" : "Task flagged" });
-  }
-
   return (
-    <List>
+    <List searchBarPlaceholder="Search tasks to flag…">
       {tasks.length === 0 && <List.EmptyView title="No tasks" description="Add a task to get started." />}
       {tasks.map((task) => (
         <List.Item
@@ -47,17 +30,10 @@ export default function ListTasks() {
           icon={task.flagged ? { source: Icon.Flag, tintColor: "#6264ff" } : Icon.Circle}
           actions={
             <ActionPanel>
-              <Action title="Complete" icon={Icon.Checkmark} onAction={() => completeTask(task)} />
               <Action
                 title={task.flagged ? "Remove Flag" : "Flag"}
                 icon={Icon.Flag}
                 onAction={() => toggleFlag(task)}
-              />
-              <Action
-                title="Delete"
-                icon={Icon.Trash}
-                style={Action.Style.Destructive}
-                onAction={() => deleteTask(task)}
               />
             </ActionPanel>
           }

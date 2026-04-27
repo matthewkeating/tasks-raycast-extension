@@ -17,6 +17,12 @@ declare namespace Preferences {
   export type AddTask = ExtensionPreferences & {}
   /** Preferences accessible in the `list-tasks` command */
   export type ListTasks = ExtensionPreferences & {}
+  /** Preferences accessible in the `complete-task` command */
+  export type CompleteTask = ExtensionPreferences & {}
+  /** Preferences accessible in the `flag-task` command */
+  export type FlagTask = ExtensionPreferences & {}
+  /** Preferences accessible in the `delete-task` command */
+  export type DeleteTask = ExtensionPreferences & {}
 }
 
 declare namespace Arguments {
@@ -24,5 +30,11 @@ declare namespace Arguments {
   export type AddTask = {}
   /** Arguments passed to the `list-tasks` command */
   export type ListTasks = {}
+  /** Arguments passed to the `complete-task` command */
+  export type CompleteTask = {}
+  /** Arguments passed to the `flag-task` command */
+  export type FlagTask = {}
+  /** Arguments passed to the `delete-task` command */
+  export type DeleteTask = {}
 }
 

@@ -19,6 +19,24 @@
       "title": "List Tasks",
       "description": "List and manage your tasks",
       "mode": "view"
+    },
+    {
+      "name": "complete-task",
+      "title": "Complete Task",
+      "description": "Mark a task as complete",
+      "mode": "view"
+    },
+    {
+      "name": "flag-task",
+      "title": "Flag Task",
+      "description": "Flag or unflag a task",
+      "mode": "view"
+    },
+    {
+      "name": "delete-task",
+      "title": "Delete Task",
+      "description": "Delete a task",
+      "mode": "view"
     }
   ],
   "dependencies": {
