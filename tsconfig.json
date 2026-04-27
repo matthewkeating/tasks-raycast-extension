@@ -1,13 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "lib": ["ES2022"],
     "target": "ES2022",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "strict": true,
-    "skipLibCheck": true,
-    "outDir": "dist"
+    "noEmit": true,
+    "skipLibCheck": true
   },
   "include": ["src"]
 }
