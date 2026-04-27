@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Lock files (large, rarely useful for Claude context)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated type declarations
+raycast-env.d.ts
+
+# Assets (binary files Claude can't use)
+assets/
+
+# Git internals
+.git/
